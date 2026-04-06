@@ -96,4 +96,44 @@ export async function getStaleContacts(
     })
 }
 
+export type BirthdayByMonth = {
+  month: number // 0-11
+  contacts: { id: string; name: string; photoUrl: string | null; day: number }[]
+}
+
+export async function getBirthdaysByMonth(): Promise<BirthdayByMonth[]> {
+  const db = getDb()
+  const allWithBirthdays = await db
+    .select({
+      id: contacts.id,
+      name: contacts.name,
+      photoUrl: contacts.photoUrl,
+      birthday: contacts.birthday,
+    })
+    .from(contacts)
+    .where(isNotNull(contacts.birthday))
+
+  const months: BirthdayByMonth[] = Array.from({ length: 12 }, (_, i) => ({
+    month: i,
+    contacts: [],
+  }))
+
+  for (const c of allWithBirthdays) {
+    const [, m, d] = c.birthday!.split("-").map(Number)
+    months[m - 1].contacts.push({
+      id: c.id,
+      name: c.name,
+      photoUrl: c.photoUrl,
+      day: d,
+    })
+  }
+
+  // Sort contacts within each month by day
+  for (const m of months) {
+    m.contacts.sort((a, b) => a.day - b.day)
+  }
+
+  return months
+}
+
 export { getRecentInteractions }

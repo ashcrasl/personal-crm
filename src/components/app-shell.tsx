@@ -3,18 +3,36 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, Users, Home, Cake, LogOut } from "lucide-react"
+import { Menu, Users, Home, Cake, LogOut, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Separator } from "@/components/ui/separator"
 import { logout } from "@/lib/actions/auth"
 import { cn } from "@/lib/utils"
+import { CommandPalette } from "@/components/command-palette"
 
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: Home },
   { href: "/contacts", label: "Contacts", icon: Users },
   { href: "/birthdays", label: "Birthdays", icon: Cake },
 ]
+
+function SearchTrigger() {
+  return (
+    <button
+      onClick={() => {
+        document.dispatchEvent(
+          new KeyboardEvent("keydown", { key: "k", metaKey: true })
+        )
+      }}
+      className="flex w-full items-center gap-2 rounded-md border bg-muted/50 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted"
+    >
+      <Search className="h-3.5 w-3.5" />
+      <span className="flex-1 text-left">Search...</span>
+      <kbd className="rounded border bg-background px-1 py-0.5 text-[10px]">⌘K</kbd>
+    </button>
+  )
+}
 
 function NavLinks({ onClick }: { onClick?: () => void }) {
   const pathname = usePathname()
@@ -48,7 +66,10 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <h1 className="text-lg font-semibold">Personal CRM</h1>
       </div>
       <Separator />
-      <div className="flex-1 px-2 py-4">
+      <div className="px-2 pt-4 pb-2">
+        <SearchTrigger />
+      </div>
+      <div className="flex-1 px-2">
         <NavLinks onClick={onNavigate} />
       </div>
       <Separator />
@@ -75,6 +96,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Mobile header + sheet */}
+      <CommandPalette />
+
       <div className="flex flex-1 flex-col">
         <header className="flex h-14 items-center border-b px-4 md:hidden">
           <Sheet open={open} onOpenChange={setOpen}>

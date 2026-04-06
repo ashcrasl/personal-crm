@@ -1,10 +1,13 @@
 "use client"
 
+import { useRef, useState } from "react"
+import { Camera, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import type { Contact } from "@/lib/actions/contacts"
 
 interface ContactFormProps {
@@ -13,7 +16,34 @@ interface ContactFormProps {
   title: string
 }
 
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2)
+}
+
 export function ContactForm({ contact, action, title }: ContactFormProps) {
+  const [preview, setPreview] = useState<string | null>(contact?.photoUrl ?? null)
+  const [removePhoto, setRemovePhoto] = useState(false)
+  const fileRef = useRef<HTMLInputElement>(null)
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (file) {
+      setPreview(URL.createObjectURL(file))
+      setRemovePhoto(false)
+    }
+  }
+
+  function handleRemovePhoto() {
+    setPreview(null)
+    setRemovePhoto(true)
+    if (fileRef.current) fileRef.current.value = ""
+  }
+
   return (
     <Card className="max-w-2xl">
       <CardHeader>
@@ -21,6 +51,42 @@ export function ContactForm({ contact, action, title }: ContactFormProps) {
       </CardHeader>
       <CardContent>
         <form action={action} className="space-y-4">
+          <input type="hidden" name="removePhoto" value={removePhoto ? "true" : "false"} />
+
+          {/* Photo upload */}
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <Avatar className="h-20 w-20">
+                <AvatarImage src={preview ?? undefined} />
+                <AvatarFallback className="text-lg">
+                  {contact?.name ? getInitials(contact.name) : <Camera className="h-6 w-6" />}
+                </AvatarFallback>
+              </Avatar>
+              {preview && (
+                <button
+                  type="button"
+                  onClick={handleRemovePhoto}
+                  className="absolute -right-1 -top-1 rounded-full bg-destructive p-1 text-destructive-foreground shadow-sm"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              )}
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="photo" className="text-sm font-medium">Photo</Label>
+              <Input
+                ref={fileRef}
+                id="photo"
+                name="photo"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handleFileChange}
+                className="max-w-64"
+              />
+              <p className="text-xs text-muted-foreground">JPG, PNG, or WebP. Max 4MB.</p>
+            </div>
+          </div>
+
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="name">Name *</Label>

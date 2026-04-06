@@ -6,6 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { getContact, deleteContact } from "@/lib/actions/contacts"
+import { getInteractions } from "@/lib/actions/interactions"
+import { InteractionTimeline } from "@/components/interaction-timeline"
+import { AddInteractionForm } from "@/components/add-interaction-form"
 import { format } from "date-fns"
 
 function getInitials(name: string): string {
@@ -28,6 +31,7 @@ export default async function ContactDetailPage({
   if (!contact) notFound()
 
   const deleteWithId = deleteContact.bind(null, id)
+  const contactInteractions = await getInteractions(id)
 
   return (
     <div className="space-y-6">
@@ -155,17 +159,18 @@ export default async function ContactDetailPage({
 
       <Separator />
 
-      {/* Interaction timeline placeholder — Phase 2 */}
       <Card>
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             Interactions
           </CardTitle>
+          <AddInteractionForm contactId={id} />
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">
-            Interaction timeline coming in Phase 2.
-          </p>
+          <InteractionTimeline
+            interactions={contactInteractions}
+            contactId={id}
+          />
         </CardContent>
       </Card>
     </div>

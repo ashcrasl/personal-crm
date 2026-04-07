@@ -75,7 +75,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       <Separator />
       <div className="p-2">
         <form action={logout}>
-          <Button variant="ghost" className="w-full justify-start gap-3" size="sm">
+          <Button type="submit" variant="ghost" className="w-full justify-start gap-3" size="sm">
             <LogOut className="h-4 w-4" />
             Sign Out
           </Button>

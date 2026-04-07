@@ -1,4 +1,4 @@
-import { pgTable, text, date, timestamp } from "drizzle-orm/pg-core"
+import { pgTable, text, date, timestamp, primaryKey } from "drizzle-orm/pg-core"
 
 export const contacts = pgTable("contacts", {
   id: text("id").primaryKey(),
@@ -28,6 +28,26 @@ export const interactions = pgTable("interactions", {
   notes: text("notes"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 })
+
+export const tags = pgTable("tags", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull().unique(),
+  color: text("color").notNull().default("#6b7280"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+})
+
+export const contactTags = pgTable(
+  "contact_tags",
+  {
+    contactId: text("contact_id")
+      .references(() => contacts.id, { onDelete: "cascade" })
+      .notNull(),
+    tagId: text("tag_id")
+      .references(() => tags.id, { onDelete: "cascade" })
+      .notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.contactId, t.tagId] })]
+)
 
 export const sessions = pgTable("sessions", {
   id: text("id").primaryKey(),

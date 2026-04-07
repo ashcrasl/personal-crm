@@ -9,6 +9,8 @@ import { getContact, deleteContact } from "@/lib/actions/contacts"
 import { getInteractions } from "@/lib/actions/interactions"
 import { InteractionTimeline } from "@/components/interaction-timeline"
 import { AddInteractionForm } from "@/components/add-interaction-form"
+import { TagPicker } from "@/components/tag-picker"
+import { getTags, getContactTags } from "@/lib/actions/tags"
 import { format } from "date-fns"
 
 function getInitials(name: string): string {
@@ -31,7 +33,11 @@ export default async function ContactDetailPage({
   if (!contact) notFound()
 
   const deleteWithId = deleteContact.bind(null, id)
-  const contactInteractions = await getInteractions(id)
+  const [contactInteractions, allTags, contactTagsList] = await Promise.all([
+    getInteractions(id),
+    getTags(),
+    getContactTags(id),
+  ])
 
   return (
     <div className="space-y-6">
@@ -51,6 +57,13 @@ export default async function ContactDetailPage({
                 {contact.company}
               </p>
             )}
+            <div className="mt-2">
+              <TagPicker
+                contactId={id}
+                allTags={allTags}
+                activeTags={contactTagsList}
+              />
+            </div>
           </div>
         </div>
         <div className="flex gap-2">

@@ -144,6 +144,15 @@ export function ContactForm({ contact, action, title }: ContactFormProps) {
                 defaultValue={contact?.birthday ?? ""}
               />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="spouseName">Spouse Name</Label>
+              <Input
+                id="spouseName"
+                name="spouseName"
+                defaultValue={contact?.spouseName ?? ""}
+                placeholder="Partner or spouse name"
+              />
+            </div>
           </div>
 
           <div className="space-y-2">

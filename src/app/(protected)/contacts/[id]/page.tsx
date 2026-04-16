@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { Pencil, Trash2, ExternalLink, Mail, Phone, Cake, Calendar } from "lucide-react"
+import { Pencil, Trash2, ExternalLink, Mail, Phone, Cake, Calendar, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -50,7 +50,7 @@ export default async function ContactDetailPage({
             </AvatarFallback>
           </Avatar>
           <div>
-            <h1 className="text-2xl font-bold">{contact.name}</h1>
+            <h1 className="font-heading text-2xl font-semibold">{contact.name}</h1>
             {contact.company && (
               <p className="text-muted-foreground">
                 {contact.role ? `${contact.role} at ` : ""}
@@ -84,7 +84,7 @@ export default async function ContactDetailPage({
         {/* Contact Info */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="editorial-label">
               Contact Info
             </CardTitle>
           </CardHeader>
@@ -118,6 +118,12 @@ export default async function ContactDetailPage({
                 </a>
               </div>
             )}
+            {contact.spouseName && (
+              <div className="flex items-center gap-2 text-sm">
+                <Heart className="h-4 w-4 text-muted-foreground" />
+                {contact.spouseName}
+              </div>
+            )}
             {contact.birthday && (
               <div className="flex items-center gap-2 text-sm">
                 <Cake className="h-4 w-4 text-muted-foreground" />
@@ -144,7 +150,7 @@ export default async function ContactDetailPage({
         {/* How We Met */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="editorial-label">
               How We Met
             </CardTitle>
           </CardHeader>
@@ -158,7 +164,7 @@ export default async function ContactDetailPage({
         {/* Personal Notes */}
         <Card className="md:col-span-2">
           <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="editorial-label">
               Personal Notes
             </CardTitle>
           </CardHeader>

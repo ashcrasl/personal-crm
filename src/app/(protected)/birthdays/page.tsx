@@ -37,17 +37,17 @@ export default async function BirthdaysPage() {
     <div className="space-y-8">
       <div className="flex items-center gap-2">
         <Cake className="h-6 w-6" />
-        <h1 className="text-2xl font-bold">Birthdays</h1>
+        <h1 className="font-heading text-2xl font-semibold">Birthdays</h1>
       </div>
 
       {/* Upcoming (next 30 days) */}
       {upcoming.length > 0 && (
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold">Coming Up</h2>
+          <h2 className="font-heading text-lg font-semibold">Coming Up</h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {upcoming.map((c) => (
               <Link key={c.id} href={`/contacts/${c.id}`}>
-                <Card className="transition-colors hover:bg-accent/50">
+                <Card className="transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(92,74,58,0.08)]">
                   <CardContent className="flex items-center gap-4 p-4">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={c.photoUrl ?? undefined} />
@@ -76,14 +76,14 @@ export default async function BirthdaysPage() {
 
       {/* Month-by-month calendar */}
       <div className="space-y-3">
-        <h2 className="text-lg font-semibold">Full Year</h2>
+        <h2 className="font-heading text-lg font-semibold">Full Year</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {orderedMonths.map((m) => {
             const isCurrentMonth = m.month === currentMonth
             return (
               <Card
                 key={m.month}
-                className={isCurrentMonth ? "border-primary" : ""}
+                className={isCurrentMonth ? "border border-terracotta" : ""}
               >
                 <CardHeader className="pb-2">
                   <CardTitle className="flex items-center justify-between text-sm">

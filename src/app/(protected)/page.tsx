@@ -31,51 +31,54 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <h1 className="font-heading text-2xl font-semibold anim-entry">Dashboard</h1>
 
       {/* Stats */}
       <div className="grid gap-4 sm:grid-cols-3">
-        <Card>
+        <Card className="relative anim-entry anim-delay-1">
           <CardHeader className="flex flex-row items-center gap-2 pb-2">
             <Users className="h-4 w-4 text-muted-foreground" />
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="editorial-label">
               Total Contacts
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">{totalContacts}</p>
+            <p className="font-heading text-4xl font-semibold">{totalContacts}</p>
           </CardContent>
+          <span className="absolute bottom-0 left-6 right-6 h-0.5 rounded-full bg-terracotta" />
         </Card>
-        <Card>
+        <Card className="relative anim-entry anim-delay-2">
           <CardHeader className="flex flex-row items-center gap-2 pb-2">
             <Cake className="h-4 w-4 text-muted-foreground" />
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="editorial-label">
               Upcoming Birthdays
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">{birthdays.length}</p>
+            <p className="font-heading text-4xl font-semibold">{birthdays.length}</p>
           </CardContent>
+          <span className="absolute bottom-0 left-6 right-6 h-0.5 rounded-full bg-sage" />
         </Card>
-        <Card>
+        <Card className="relative anim-entry anim-delay-3">
           <CardHeader className="flex flex-row items-center gap-2 pb-2">
             <UserX className="h-4 w-4 text-muted-foreground" />
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="editorial-label">
               Need to Reach Out
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">{staleContacts.length}</p>
+            <p className="font-heading text-4xl font-semibold">{staleContacts.length}</p>
           </CardContent>
+          <span className="absolute bottom-0 left-6 right-6 h-0.5 rounded-full bg-brown" />
         </Card>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Upcoming Birthdays */}
-        <Card>
+        <Card className="anim-entry anim-delay-4">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Cake className="h-4 w-4" />
+              <Cake className="h-4 w-4 text-terracotta" />
               Upcoming Birthdays
             </CardTitle>
           </CardHeader>
@@ -119,10 +122,10 @@ export default async function DashboardPage() {
         </Card>
 
         {/* Stale Contacts */}
-        <Card>
+        <Card className="anim-entry anim-delay-5">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <UserX className="h-4 w-4" />
+              <UserX className="h-4 w-4 text-sage" />
               Need to Reach Out
             </CardTitle>
           </CardHeader>
@@ -164,10 +167,10 @@ export default async function DashboardPage() {
         </Card>
 
         {/* Recent Interactions */}
-        <Card className="md:col-span-2">
+        <Card className="md:col-span-2 anim-entry anim-delay-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Clock className="h-4 w-4" />
+              <Clock className="h-4 w-4 text-brown" />
               Recent Interactions
             </CardTitle>
           </CardHeader>

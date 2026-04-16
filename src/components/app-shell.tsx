@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, Users, Home, Cake, LogOut, Search } from "lucide-react"
+import { Menu, Users, Home, Cake, LogOut, Search, UserPlus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Separator } from "@/components/ui/separator"
@@ -14,6 +14,7 @@ import { CommandPalette } from "@/components/command-palette"
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: Home },
   { href: "/contacts", label: "Contacts", icon: Users },
+  { href: "/contacts/new", label: "Add Contact", icon: UserPlus },
   { href: "/birthdays", label: "Birthdays", icon: Cake },
 ]
 
@@ -47,8 +48,8 @@ function NavLinks({ onClick }: { onClick?: () => void }) {
           className={cn(
             "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent",
             pathname === item.href
-              ? "bg-accent text-accent-foreground"
-              : "text-muted-foreground"
+              ? "border-l-2 border-terracotta bg-accent text-accent-foreground"
+              : "border-l-2 border-transparent text-muted-foreground"
           )}
         >
           <item.icon className="h-4 w-4" />
@@ -63,7 +64,8 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="flex h-full flex-col">
       <div className="px-3 py-4">
-        <h1 className="text-lg font-semibold">Personal CRM</h1>
+        <h1 className="font-heading text-xl font-semibold">Personal CRM</h1>
+        <p className="editorial-label mt-1">Remember your people</p>
       </div>
       <Separator />
       <div className="px-2 pt-4 pb-2">
@@ -91,7 +93,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen">
       {/* Desktop sidebar */}
-      <aside className="hidden w-56 border-r bg-background md:block">
+      <aside className="hidden w-60 border-r border-border bg-secondary md:block">
         <SidebarContent />
       </aside>
 
@@ -104,7 +106,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <SheetTrigger render={<Button variant="ghost" size="icon" />}>
               <Menu className="h-5 w-5" />
             </SheetTrigger>
-            <SheetContent side="left" className="w-56 p-0">
+            <SheetContent side="left" className="w-60 bg-secondary p-0">
               <SidebarContent onNavigate={() => setOpen(false)} />
             </SheetContent>
           </Sheet>

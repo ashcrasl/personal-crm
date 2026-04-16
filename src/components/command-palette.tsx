@@ -53,7 +53,7 @@ export function CommandPalette() {
       onOpenChange={setOpen}
       label="Search"
       overlayClassName="fixed inset-0 bg-black/50 z-50"
-      contentClassName="fixed left-1/2 top-1/4 z-50 w-full max-w-lg -translate-x-1/2 rounded-xl border bg-background shadow-2xl"
+      contentClassName="fixed left-1/2 top-1/4 z-50 w-full max-w-lg -translate-x-1/2 rounded-sm border bg-background shadow-2xl"
     >
       <div className="flex items-center border-b px-3">
         <Search className="mr-2 h-4 w-4 shrink-0 text-muted-foreground" />

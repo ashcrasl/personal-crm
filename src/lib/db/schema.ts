@@ -9,6 +9,7 @@ export const contacts = pgTable("contacts", {
   phone: text("phone"),
   linkedinUrl: text("linkedin_url"),
   photoUrl: text("photo_url"),
+  spouseName: text("spouse_name"),
   howWeMet: text("how_we_met"),
   introducedBy: text("introduced_by"),
   birthday: date("birthday"),

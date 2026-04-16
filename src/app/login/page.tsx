@@ -14,7 +14,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle className="text-center text-2xl">Personal CRM</CardTitle>
+          <CardTitle className="text-center font-heading text-2xl">Personal CRM</CardTitle>
         </CardHeader>
         <CardContent>
           <form action={formAction} className="space-y-4">

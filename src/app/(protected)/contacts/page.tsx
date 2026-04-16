@@ -53,7 +53,7 @@ export default async function ContactsPage({
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Contacts</h1>
+        <h1 className="font-heading text-2xl font-semibold">Contacts</h1>
         <Button render={<Link href="/contacts/new" />}>
           <Plus className="mr-2 h-4 w-4" />
           Add Contact
@@ -103,7 +103,7 @@ export default async function ContactsPage({
             const contactTags = tagMap.get(contact.id) ?? []
             return (
               <Link key={contact.id} href={`/contacts/${contact.id}`}>
-                <Card className="transition-colors hover:bg-accent/50">
+                <Card className="transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(92,74,58,0.08)]">
                   <CardContent className="flex items-center gap-4 p-4">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={contact.photoUrl ?? undefined} />

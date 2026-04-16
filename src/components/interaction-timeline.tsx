@@ -15,12 +15,12 @@ const TYPE_ICONS: Record<string, React.ElementType> = {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  call: "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",
-  email: "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
-  meeting: "bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300",
-  coffee: "bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300",
-  linkedin: "bg-sky-100 text-sky-700 dark:bg-sky-900 dark:text-sky-300",
-  other: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+  call: "bg-terracotta/15 text-terracotta",
+  email: "bg-sage/15 text-sage",
+  meeting: "bg-brown/15 text-brown",
+  coffee: "bg-terracotta-light/20 text-terracotta",
+  linkedin: "bg-sage-light/20 text-sage",
+  other: "bg-muted text-muted-foreground",
 }
 
 export function InteractionTimeline({
@@ -48,7 +48,7 @@ export function InteractionTimeline({
         return (
           <div
             key={interaction.id}
-            className="flex items-start gap-3 rounded-lg border p-3"
+            className="flex items-start gap-3 rounded-sm border p-3"
           >
             <div className={`rounded-md p-2 ${colorClass}`}>
               <Icon className="h-4 w-4" />

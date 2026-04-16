@@ -75,13 +75,16 @@ export async function createContact(formData: FormData): Promise<void> {
     phone: (formData.get("phone") as string) || null,
     linkedinUrl: (formData.get("linkedinUrl") as string) || null,
     photoUrl,
+    spouseName: (formData.get("spouseName") as string) || null,
     howWeMet: (formData.get("howWeMet") as string) || null,
     introducedBy: (formData.get("introducedBy") as string) || null,
     birthday: (formData.get("birthday") as string) || null,
     personalNotes: (formData.get("personalNotes") as string) || null,
   })
 
+  revalidatePath("/")
   revalidatePath("/contacts")
+  revalidatePath("/birthdays")
   redirect(`/contacts/${id}`)
 }
 
@@ -115,6 +118,7 @@ export async function updateContact(
       phone: (formData.get("phone") as string) || null,
       linkedinUrl: (formData.get("linkedinUrl") as string) || null,
       ...(photoUrl !== undefined ? { photoUrl } : {}),
+      spouseName: (formData.get("spouseName") as string) || null,
       howWeMet: (formData.get("howWeMet") as string) || null,
       introducedBy: (formData.get("introducedBy") as string) || null,
       birthday: (formData.get("birthday") as string) || null,
@@ -123,14 +127,18 @@ export async function updateContact(
     })
     .where(eq(contacts.id, id))
 
+  revalidatePath("/")
   revalidatePath(`/contacts/${id}`)
   revalidatePath("/contacts")
+  revalidatePath("/birthdays")
   redirect(`/contacts/${id}`)
 }
 
 export async function deleteContact(id: string): Promise<void> {
   const db = getDb()
   await db.delete(contacts).where(eq(contacts.id, id))
+  revalidatePath("/")
   revalidatePath("/contacts")
+  revalidatePath("/birthdays")
   redirect("/contacts")
 }

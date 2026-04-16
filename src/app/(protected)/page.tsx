@@ -11,6 +11,8 @@ import {
   getRecentInteractions,
 } from "@/lib/actions/dashboard"
 
+export const dynamic = "force-dynamic"
+
 function getInitials(name: string): string {
   return name
     .split(" ")

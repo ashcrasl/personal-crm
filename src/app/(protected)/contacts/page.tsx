@@ -8,6 +8,8 @@ import { getContacts } from "@/lib/actions/contacts"
 import { getTags, getTagsForContacts, getContactsByTag } from "@/lib/actions/tags"
 import { ContactSearch } from "./contact-search"
 
+export const dynamic = "force-dynamic"
+
 function getInitials(name: string): string {
   return name
     .split(" ")
